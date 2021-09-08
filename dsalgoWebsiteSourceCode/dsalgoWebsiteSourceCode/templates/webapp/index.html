@@ -1,0 +1,101 @@
+{% extends 'webapp/layout.html' %}
+{% load docs_tags %}
+{% load static %}
+
+{% block body %}
+<main>
+    <section class="hero">
+        <div class="hero_container">
+            <div class="hero-inner">
+                <div class="hero-copy hero_column">
+                    <h1 class="hero-title">{{hero.heading}}</h1>
+                    <p class="hero-paragraph">{{hero.paragraph}}</p>
+                    <div class="hero-cta"><a class="button button-primary" href="{{hero.docs_file.url}}" download >Download</a><a class="button" href="{% url 'Docs' %}">Documentation</a></div>
+                </div>
+                <div class="hero-figure">
+                    <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+                        <rect width="528" height="396" style="fill:transparent;" />
+                    </svg>
+                    <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+                    <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+                    <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+                    <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+                    <div class="hero-figure-box hero-figure-box-05"></div>
+                    <div class="hero-figure-box hero-figure-box-06"></div>
+                    <div class="hero-figure-box hero-figure-box-07"></div>
+                    <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+                    <div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
+                    <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="components">
+            <h1>Components</h1>
+            <div class="components-container">
+
+                {% for comp in components|slice:"1:3" %}
+                <div class="component-columns">
+                    <div class="component-image">
+                        <img src="{{comp.image.url}}">
+                    </div>
+                    <div class="components-text">
+                        <h4>{{comp.heading}}</h4>
+                        <p>{{comp.description|slice:"0:50"}}...</p>
+                        <ul>
+                            {% components_items comp as comp_items%}
+                            {% for comp_item in comp_items %}
+                            <li class="option">{{comp_item.title}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- code sample  -->
+    <section>
+        <div class="code_sample">
+            <h1>Write Your Code</h1>
+            <div class="code_sample_container">
+                {% for code in samplecodes %}
+                <div class="sample_column">
+                    <p>
+                      {{code.title}} 
+                    </p>
+                    <div>
+                        <pre>
+                            {{code.code|safe}}
+                         </pre>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="support_team">
+            <h1>Awesome isn't it? Let's dive in!</h1>
+            <div class="support_team_container">
+                <p>Get Started quickly in our Guides section, or dig into the documentation section for more high-level information on the core notions behind dsalgolib.</p>
+                <div class="support_team_button">
+                    <a href="{% url 'Docs' %}" >Documentation</a>
+                </div>
+            </div>
+        </div>
+    <section>
+        <div class="support_team">
+            <h1>Support the Team</h1>
+            <div class="support_team_container">
+                <p>Through contributions, donations, and sponsorship, you allow C++ dsalgo library to thrive. Your donations directly support office hours, continued enhancements, and most importantly, great documentation and learning material!</p>
+                <div class="support_team_button">
+                    <a href="" >Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+<main>
+{% endblock %}

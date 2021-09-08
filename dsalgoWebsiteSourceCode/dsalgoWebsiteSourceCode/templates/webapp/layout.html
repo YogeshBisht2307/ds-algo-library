@@ -1,0 +1,54 @@
+{% load static %}
+{% load docs_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structure and Algorithm Library</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="">
+    
+    <meta name="googlebot" content="">
+    <meta name="description"
+        content="{{config.description}}">
+    <meta name="keywords" content="">
+
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css"/>
+    <link rel="stylesheet" href="{% static 'webapp/css/style.css' %}"/>      
+
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">DSalgoLIB</a>
+        <input type="checkbox" id="menu">
+        <label for="menu">Menu</label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{% url 'Home' %}">Home</a></li>
+				<li><a href="{% url 'Docs' %}">Documentation</a></li>
+                <li><a href="#">Topics</a>
+                    <ul>
+                        {% topics_content as topics_contents %}
+                        {% for tc in topics_contents|slice:"0:6" %}
+                        <li><a href="{% url 'DocsDetail' tc.slug %}">{{tc.title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block body %}
+    {% endblock %}
+    <footer>
+        <div class="footer_container">All copyright reserved to C++ documentation</div>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="{% static 'webapp/js/main.js' %}"></script>
+    
+</body>
+</html>

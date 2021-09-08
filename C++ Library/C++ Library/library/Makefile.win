@@ -1,0 +1,45 @@
+# Project: DS_ALGO_TEMPLATE_LIBRARY
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = arraylib.o linkedlistlib.o treelib.o stacklib.o queuelib.o graphlib.o
+LINKOBJ  = arraylib.o linkedlistlib.o treelib.o stacklib.o queuelib.o graphlib.o
+LIBS     = -L"F:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -m32
+INCS     = -I"F:/Dev C++/Dev-Cpp/MinGW64/include" -I"F:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"F:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"F:/Dev C++/Dev-Cpp/MinGW64/include" -I"F:/Dev C++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"F:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"F:/Dev C++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = DS_ALGO_TEMPLATE_LIBRARY.dll
+CXXFLAGS = $(CXXINCS) -m32 -std=c++0x -DBUILDING_DLL=1
+CFLAGS   = $(INCS) -m32 -std=c++0x -DBUILDING_DLL=1
+RM       = rm.exe -f
+DEF      = libDS_ALGO_TEMPLATE_LIBRARY.def
+STATIC   = libDS_ALGO_TEMPLATE_LIBRARY.a
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN) $(DEF) $(STATIC)
+
+$(BIN): $(LINKOBJ)
+	$(CPP) -shared $(LINKOBJ) -o $(BIN) $(LIBS) -Wl,--output-def,$(DEF),--out-implib,$(STATIC),--add-stdcall-alias
+
+arraylib.o: arraylib.cpp
+	$(CPP) -c arraylib.cpp -o arraylib.o $(CXXFLAGS)
+
+linkedlistlib.o: linkedlistlib.cpp
+	$(CPP) -c linkedlistlib.cpp -o linkedlistlib.o $(CXXFLAGS)
+
+treelib.o: treelib.cpp
+	$(CPP) -c treelib.cpp -o treelib.o $(CXXFLAGS)
+
+stacklib.o: stacklib.cpp
+	$(CPP) -c stacklib.cpp -o stacklib.o $(CXXFLAGS)
+
+queuelib.o: queuelib.cpp
+	$(CPP) -c queuelib.cpp -o queuelib.o $(CXXFLAGS)
+
+graphlib.o: graphlib.cpp
+	$(CPP) -c graphlib.cpp -o graphlib.o $(CXXFLAGS)

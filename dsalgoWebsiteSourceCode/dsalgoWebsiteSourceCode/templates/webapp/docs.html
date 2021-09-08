@@ -1,0 +1,62 @@
+{% extends 'webapp/layout.html' %}
+{% load static %}
+{% load docs_tags %}
+{%  block body %}
+
+<main class="docs_main">
+    <section>
+        <div class="documentation_container">
+            <div class="documentation_row">
+                <div class="documentation_column">
+                    <h4 class="docs_main_head">DS Algo C++ Library</h1>
+                    <div class="navigation_content">
+                        <ol class="main_list">
+
+                            {% for component in components %}
+                            <li><a class="comp_class" href="{% url 'DocsDetail' component.slug %}">{{component.heading}}</a>
+                                <ul class="sub_list1">
+                                    {% docs_category component as components_categroy %}
+                                    {% for cc in components_categroy %}
+                                    <li><a href="{% url 'DocsDetail' cc.slug %}">{{cc.title}}</a>
+                                        <ul class="sub_list2">
+                                            {% docs_content cc as docs %}
+                                            {% for doc in docs %}
+                                            <li> <a href="#{{doc.permalink}}">{{doc.title}}</a></li>
+                                            {% endfor  %}
+                                        </ul>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="documentation_column">
+                    {% if component %}
+                    <h2>{{component.heading}}</h2>
+                    <p>{{component.description}}</p>
+                    <ul class="document_column_ul">
+                        {% docs_category component as components_categroies %}
+                        {% for ccs in components_categroies %}
+                        <li><a href="{% url 'DocsDetail' ccs.slug %}">{{ccs.title}}</a></li>
+                        {% endfor  %}
+                    </ul>
+                    {% else %}
+                    {% for ad in allDocs %}
+                    {{ad.content | safe}}
+                    <br/>
+                    <br/>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
